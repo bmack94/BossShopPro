@@ -51,12 +51,12 @@ public class ItemStackTranslator {
                     if (tagContainer.hasCustomTag(key, ItemTagType.STRING)) {
                         String placeholder = tagContainer.getCustomTag(key, ItemTagType.STRING);
                         if (placeholder != null) {
-                            String playerName = ClassManager.manager.getStringManager().transform(placeholder, target);
-                            OfflinePlayer transformedPlayer = Bukkit.getOfflinePlayer(playerName);
-                            if (transformedPlayer != null) {
-                                skullmeta.setOwningPlayer(transformedPlayer);
-                            } else {
+                            if (target == null) {
+                                String playerName = ClassManager.manager.getStringManager().transform(placeholder, target);
                                 skullmeta.setOwner(playerName);
+                            } else {
+                                OfflinePlayer transformedPlayer = Bukkit.getOfflinePlayer(target.getUniqueId());
+                                skullmeta.setOwningPlayer(transformedPlayer);
                             }
                         }
                     }
